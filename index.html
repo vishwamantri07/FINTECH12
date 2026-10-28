@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InvestMate | Smart Money Companion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" onclick="showPage('dashboard');return false">
+        <span class="brand-icon">I</span>
+        <span>InvestMate<small>SMART MONEY COMPANION</small></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+      <nav>
+        <button class="nav-link active" data-page="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav-link" data-page="money">↔ <span>Money Manager</span></button>
+        <button class="nav-link" data-page="affordability">◈ <span>Stock Affordability</span></button>
+        <button class="nav-link" data-page="market">⌁ <span>Market Watch</span></button>
+        <button class="nav-link" data-page="health">♥ <span>Financial Health</span></button>
+        <button class="nav-link" data-page="goals">◎ <span>Savings Goals</span></button>
+        <button class="nav-link" data-page="learn">✦ <span>Learn to Invest</span></button>
+        <button class="nav-link" data-page="safety">盾 <span>Scam Safety Checker</span></button>
+        <button class="nav-link" data-page="coach">☷ <span>Money Coach</span></button>
+        <button class="nav-link" data-page="ai">✧ <span>Ask InvestMate</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="demo-tag"><span class="status-dot"></span> Demo mode</div>
+        <p>Educational prototype<br>Not financial advice.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL FINANCE SPACE</p>
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+        <div class="top-actions">
+          <label class="language-label" for="global-language">Language</label>
+          <select id="global-language" aria-label="Choose language">
+            <option value="en">English</option>
+            <option value="kn">ಕನ್ನಡ</option>
+          </select>
+          <button class="avatar" title="Demo profile">V</button>
+        </div>
+      </header>
+
+      <section class="page active" id="dashboard">
+        <div class="welcome-banner">
+          <div>
+            <p class="eyebrow light">WELCOME TO INVESTMATE</p>
+            <h2>Make your money work smarter.</h2>
+            <p>Track spending, plan goals, and learn before you invest.</p>
+          </div>
+          <div class="banner-icon">₹</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Available balance</span>
+            <h2 id="dash-balance">₹50,000</h2>
+            <p class="muted">Demo starting balance + activity</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total income</span>
+            <h2 class="green-text" id="dash-income">₹0</h2>
+            <p class="muted">Recorded income</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total expenses</span>
+            <h2 class="red-text" id="dash-expenses">₹0</h2>
+            <p class="muted">Recorded expenses</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Financial health</span>
+            <h2 id="dash-health">— / 100</h2>
+            <button class="text-button" onclick="showPage('health')">View score →</button>
+          </article>
+        </div>
+
+        <div class="two-column">
+          <article class="panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR ACTIVITY</p><h3>Recent transactions</h3></div>
+              <button class="text-button" onclick="showPage('money')">View all →</button>
+            </div>
+            <div id="recent-transactions" class="transaction-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR NEXT STEP</p><h3>Financial snapshot</h3></div>
+            </div>
+            <div id="dashboard-insight" class="insight-box"></div>
+            <button class="primary-button full-width" onclick="showPage('goals')">Plan a savings goal</button>
+            <button class="secondary-button full-width" onclick="showPage('learn')">Try an investing quiz</button>
+          </article>
+        </div>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">SIMULATED DATA</p><h3>Market snapshot</h3></div>
+            <button class="text-button" onclick="showPage('market')">Explore market →</button>
+          </div>
+          <div class="market-mini-grid" id="dashboard-market"></div>
+          <p class="fine-print">Sample prices and movements only. These are not live market quotes.</p>
+        </article>
+      </section>
+
+      <section class="page" id="money">
+        <div class="section-intro">
+          <p class="eyebrow">KNOW WHERE YOUR MONEY GOES</p>
+          <h2>Money Manager</h2>
+          <p>Record income and expenses, then review your spending.</p>
+        </div>
+
+        <article class="panel">
+          <h3>Add a transaction</h3>
+          <form id="transaction-form" class="form-grid">
+            <label>Description<input id="tx-description" required maxlength="80" placeholder="e.g. College books"></label>
+            <label>Amount (₹)<input id="tx-amount" type="number" min="1" step="0.01" required placeholder="500"></label>
+            <label>Type
+              <select id="tx-type"><option value="expense">Expense</option><option value="income">Income</option></select>
+            </label>
+            <label>Category
+              <select id="tx-category">
+                <option>Food</option><option>Education</option><option>Travel</option>
+                <option>Shopping</option><option>Salary</option><option>Freelance</option>
+                <option>Savings</option><option>Bills</option><option>Other</option>
+              </select>
+            </label>
+            <label>Date<input id="tx-date" type="date" required></label>
+            <div class="form-end"><button class="primary-button" type="submit">+ Add transaction</button></div>
+          </form>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading"><h3>Transaction history</h3><button class="secondary-button" id="export-csv">Export CSV</button></div>
+          <div class="filter-row">
+            <input id="tx-search" placeholder="Search transactions...">
+            <select id="tx-filter"><option value="all">All types</option><option value="income">Income</option><option value="expense">Expenses</option></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Description</th><th>Category</th><th>Date</th><th>Type</th><th>Amount</th><th>Action</th></tr></thead>
+              <tbody id="transaction-table"></tbody>
+            </table>
+          </div>
+          <p id="tx-empty" class="muted hidden">No transactions match your search.</p>
+        </article>
+      </section>
+
+      <section class="page" id="affordability">
+        <div class="section-intro">
+          <p class="eyebrow">PLAN BEFORE YOU BUY</p>
+          <h2>Stock Affordability Analyzer</h2>
+          <p>Estimate a possible budget after expenses and savings commitments.</p>
+        </div>
+        <div class="two-column">
+          <article class="panel">
+            <h3>Your money plan</h3>
+            <form id="afford-form" class="stack-form">
+              <label>Current available balance (₹)<input id="aff-balance" type="number" min="0" value="50000" required></label>
+              <label>Monthly expenses (₹)<input id="aff-expenses" type="number" min="0" value="0" required></label>
+              <label>Savings commitments (₹)<input id="aff-savings" type="number" min="0" value="0" required></label>
+              <label>Example stock
+                <select id="aff-stock">
+                  <option value="Reliance Industries">Reliance Industries — ₹1,450</option>
+                  <option value="TCS">TCS — ₹3,800</option>
+                  <option value="Infosys">Infosys — ₹1,600</option>
+                  <option value="HDFC Bank">HDFC Bank — ₹1,700</option>
+                  <option value="ITC">ITC — ₹450</option>
+                </select>
+              </label>
+              <button class="primary-button" type="submit">Calculate estimate</button>
+            </form>
+          </article>
+          <article class="panel result-panel">
+            <p class="eyebrow">ESTIMATED RESULT</p>
+            <div class="big-number" id="aff-result">₹0</div>
+            <p class="muted">Estimated investment budget</p>
+            <div class="result-divider"></div>
+            <div class="result-line"><span>Possible whole shares</span><strong id="aff-shares">0</strong></div>
+            <div class="result-line"><span>Safety reserve (20%)</span><strong id="aff-reserve">₹0</strong></div>
+            <div class="result-line"><span>Stock sample price</span><strong id="aff-price">₹1,450</strong></div>
+            <p id="aff-message" class="insight-box">Enter your figures to calculate.</p>
+          </article>
+        </div>
+        <p class="notice">This tool is a simplified educational estimate, not a recommendation to buy a stock. It excludes taxes, fees, price changes, and other financial obligations. Sample prices are simulated, not live.</p>
+      </section>
+
+      <section class="page" id="market">
+        <div class="section-intro">
+          <p class="eyebrow">LEARN TO READ MARKET MOVEMENTS</p>
+          <h2>Market Watch</h2>
+          <p>Explore simulated price movements for learning only.</p>
+        </div>
+        <div class="notice">Demo market data only — not live quotes, predictions, or buy/sell recommendations.</div>
+        <div class="market-grid" id="market-cards"></div>
+        <article class="panel">
+          <h3>How to read the movement</h3>
+          <p class="muted">A positive percentage means the sample price increased over the displayed sample period. A negative percentage means it decreased. Past movement does not reliably predict future performance.</p>
+        </article>
+      </section>
+
+      <section class="page" id="health">
+        <div class="section-intro">
+          <p class="eyebrow">BUILD HEALTHIER MONEY HABITS</p>
+          <h2>Financial Health Score</h2>
+          <p>Your educational score uses your recorded transactions and savings goals. It is not a credit score or professional financial assessment.</p>
+        </div>
+        <div class="health-layout">
+          <article class="panel score-panel">
+            <div class="score-ring" id="health-ring"><div><strong id="health-score">0</strong><span>out of 100</span></div></div>
+            <h3 id="health-label">Getting started</h3>
+            <p id="health-summary" class="muted">Add transactions and create a savings goal to see a more useful snapshot.</p>
+          </article>
+          <article class="panel">
+            <h3>What affects your score?</h3>
+            <div id="health-breakdown" class="breakdown-list"></div>
+          </article>
+        </div>
+        <article class="panel">
+          <h3>Personalized improvement ideas</h3>
+          <div id="health-tips" class="tips-list"></div>
+        </article>
+      </section>
+
+      <section class="page" id="goals">
+        <div class="section-intro">
+          <p class="eyebrow">SMALL STEPS, CLEAR TARGETS</p>
+          <h2>Goal-Based Savings Planner</h2>
+          <p>Create a target and estimate how much you would need to save each month.</p>
+        </div>
+        <article class="panel">
+          <h3>Create a savings goal</h3>
+          <form id="goal-form" class="form-grid">
+            <label>Goal name<input id="goal-name" required maxlength="60" placeholder="e.g. New laptop"></label>
+            <label>Target amount (₹)<input id="goal-target" type="number" min="1" required placeholder="60000"></label>
+            <label>Already saved (₹)<input id="goal-saved" type="number" min="0" value="0" required></label>
+            <label>Target date<input id="goal-date" type="date" required></label>
+            <div class="form-end"><button class="primary-button" type="submit">+ Create goal</button></div>
+          </form>
+        </article>
+        <div id="goal-list" class="goal-grid"></div>
+        <p class="notice">Monthly targets are estimates based on the target date. They do not include interest or investment returns.</p>
+      </section>
+
+      <section class="page" id="learn">
+        <div class="section-intro">
+          <p class="eyebrow">LEARN BY DOING</p>
+          <h2>Learn-to-Invest Challenges</h2>
+          <p>Answer short questions and build financial knowledge one step at a time.</p>
+        </div>
+        <div class="quiz-stats">
+          <div class="stat-card"><span class="stat-label">Correct answers</span><h2 id="quiz-correct">0</h2></div>
+          <div class="stat-card"><span class="stat-label">Questions attempted</span><h2 id="quiz-attempted">0</h2></div>
+          <div class="stat-card"><span class="stat-label">Learning points</span><h2 id="quiz-points">0</h2></div>
+        </div>
+        <article class="panel quiz-panel">
+          <div class="quiz-top"><span class="pill" id="quiz-category">INVESTING BASICS</span><span class="muted" id="quiz-number">Question 1</span></div>
+          <h3 id="quiz-question">Loading question...</h3>
+          <div id="quiz-options" class="quiz-options"></div>
+          <div id="quiz-feedback" class="quiz-feedback hidden" role="status"></div>
+          <button id="quiz-next" class="primary-button" disabled>Next question →</button>
+        </article>
+        <p class="fine-print">This quiz is for general financial education, not personalized investment advice.</p>
+      </section>
+
+      <section class="page" id="safety">
+        <div class="section-intro">
+          <p class="eyebrow">PAUSE, CHECK, THEN DECIDE</p>
+          <h2>Scam & Investment Safety Checker</h2>
+          <p>Paste the text of an investment offer to check for common warning signs.</p>
+        </div>
+        <article class="panel">
+          <form id="scam-form" class="stack-form">
+            <label>Investment offer text
+              <textarea id="scam-text" rows="6" required placeholder="Example: Earn guaranteed 40% returns with zero risk! Send money today or lose this exclusive opportunity..."></textarea>
+            </label>
+            <button class="primary-button" type="submit">Check warning signs</button>
+          </form>
+        </article>
+        <article id="scam-result" class="panel hidden" aria-live="polite">
+          <div class="panel-heading"><h3 id="scam-heading">Check result</h3><span id="scam-count" class="pill"></span></div>
+          <p id="scam-summary"></p>
+          <div id="scam-flags" class="flag-list"></div>
+          <div class="notice">This is a keyword-based educational screening, not an AI detector or proof of fraud. A clean result does not mean an offer is safe. Verify the provider independently and never share passwords, PINs, or OTPs.</div>
+        </article>
+      </section>
+
+      <section class="page" id="coach">
+        <div class="section-intro">
+          <p class="eyebrow">FINANCIAL KNOWLEDGE FOR EVERYONE</p>
+          <h2>Kannada + English Money Coach</h2>
+          <p>Choose a topic and read a simple explanation in your preferred language.</p>
+        </div>
+        <article class="panel">
+          <label>Choose a topic
+            <select id="coach-topic">
+              <option value="budget">Budgeting</option>
+              <option value="emergency">Emergency fund</option>
+              <option value="diversification">Diversification</option>
+              <option value="compound">Compound growth</option>
+              <option value="risk">Investment risk</option>
+              <option value="scam">Avoiding scams</option>
+            </select>
+          </label>
+          <div class="coach-card">
+            <span class="coach-icon">✦</span>
+            <h3 id="coach-title">Budgeting</h3>
+            <p id="coach-text"></p>
+          </div>
+          <button id="speak-coach" class="secondary-button">🔊 Read aloud</button>
+          <p class="fine-print">The Money Coach uses prepared educational content; it is not a live AI service. Kannada text-to-speech depends on voices available on your device.</p>
+        </article>
+      </section>
+
+      <section class="page" id="ai">
+        <div class="section-intro">
+          <p class="eyebrow">YOUR FINANCIAL LEARNING HELPER</p>
+          <h2>Ask InvestMate</h2>
+          <p>Ask a basic money question and get a prepared educational response.</p>
+        </div>
+        <article class="panel">
+          <div class="suggestion-row">
+            <button class="suggestion" data-question="How do I start budgeting?">How do I budget?</button>
+            <button class="suggestion" data-question="What is diversification?">What is diversification?</button>
+            <button class="suggestion" data-question="How can I avoid scams?">How can I avoid scams?</button>
+          </div>
+          <form id="ask-form" class="ask-form">
+            <input id="ask-input" required placeholder="Ask a money question...">
+            <button class="primary-button">Ask</button>
+          </form>
+          <div id="ask-answer" class="insight-box">Try a question above to see a demo answer.</div>
+          <p class="fine-print">Answers are rule-based demo content, not generated by a live AI model.</p>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span>InvestMate · Educational prototype</span>
+        <span>Sample data · Not financial advice</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
